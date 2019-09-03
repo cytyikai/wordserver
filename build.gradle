@@ -1,0 +1,33 @@
+plugins {
+    id 'org.springframework.boot' version '2.1.7.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'java'
+}
+
+group = 'com.cytyk'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+    maven { url 'https://maven.schbrain.com/repository/maven-releases/' }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.0'
+    compileOnly 'org.projectlombok:lombok'
+    runtimeOnly 'mysql:mysql-connector-java'
+    annotationProcessor 'org.projectlombok:lombok'
+    compile('net.sf.jacob-project:jacob:1.18')
+    compile('com.alibaba:fastjson:1.2.38')
+    compile('org.apache.pdfbox:pdfbox:2.0.4')
+    compile files("libs/words-18.7.jar")
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
