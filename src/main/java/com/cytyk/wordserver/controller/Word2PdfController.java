@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.cytyk.wordserver.common.ResponseVO;
 import com.cytyk.wordserver.service.Doc2PdfService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,6 +19,7 @@ public class Word2PdfController {
 
     private final Doc2PdfService doc2PdfService;
 
+    @Autowired
     public Word2PdfController(Doc2PdfService doc2PdfService) {
         this.doc2PdfService = doc2PdfService;
     }

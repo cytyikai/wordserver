@@ -20,7 +20,8 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
+//    implementation 'org.springframework.boot:spring-boot-starter-web'
+    compile('org.springframework.boot:spring-boot-starter-data-rest')
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.0'
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'mysql:mysql-connector-java'
@@ -28,6 +29,7 @@ dependencies {
     compile('net.sf.jacob-project:jacob:1.18')
     compile('com.alibaba:fastjson:1.2.38')
     compile('org.apache.pdfbox:pdfbox:2.0.4')
+    compile('com.aliyun.oss:aliyun-sdk-oss:2.8.2')
     compile files("libs/words-18.7.jar")
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
