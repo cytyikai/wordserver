@@ -2,6 +2,7 @@ plugins {
     id 'org.springframework.boot' version '2.1.7.RELEASE'
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
     id 'java'
+    id 'com.palantir.docker'
 }
 
 group = 'com.cytyk'
@@ -20,7 +21,6 @@ repositories {
 }
 
 dependencies {
-//    implementation 'org.springframework.boot:spring-boot-starter-web'
     compile('org.springframework.boot:spring-boot-starter-data-rest')
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.0'
     compileOnly 'org.projectlombok:lombok'
@@ -32,4 +32,34 @@ dependencies {
     compile('com.aliyun.oss:aliyun-sdk-oss:2.8.2')
     compile files("libs/words-18.7.jar")
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    classpath("gradle.plugin.com.palantir.gradle.docker:gradle-docker:0.19.2")
+}
+jar {
+    baseName = 'wordserver-' + profile
+}
+
+def loadProperties() {
+    def props = new Properties()
+    props.put("envProfiles", profile)
+    props
+}
+
+ext {
+    profile = System.getProperty("env") ?: "dev"
+    if (profile.trim() == "production") {
+        dockerNamespace = "cytyk"
+    } else if (profile.trim() == "testing") {
+        dockerNamespace = "cytyk-testing"
+    } else {
+        dockerNamespace = "cytyk-dev"
+    }
+    buildVersion = System.getProperty("version") ?: "0.0.1"
+}
+
+docker {
+    dependsOn build
+    name "registry-vpc.cn-hangzhou.aliyuncs.com/${dockerNamespace}/wordserver:${buildVersion}"
+    tags 'latest'
+    files jar.archivePath
+    buildArgs(['JAR_FILE': "${jar.archiveName}"])
 }
