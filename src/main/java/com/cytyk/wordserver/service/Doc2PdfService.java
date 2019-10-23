@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.util.Date;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author cytyikai
@@ -53,7 +54,7 @@ public class Doc2PdfService {
             PDDocument pdDocument = PDDocument.load(pdfFile);
             size = pdDocument.getNumberOfPages();
             pdDocument.close();
-            url = ossUtils.upload("wordserver/word2pdf/" + DateUtil.formatIso8601Date(new Date()), pdfFile);
+            url = ossUtils.presignedUrl("publicBucket", ossUtils.upload("wordserver/word2pdf/" + DateUtil.formatIso8601Date(new Date()), pdfFile), TimeUnit.DAYS.toSeconds(7L));
         } finally {
             if (null != resultPath) {
                 FileSystemUtils.deleteRecursively(new File(resultPath));

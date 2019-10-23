@@ -14,6 +14,8 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.InputStream;
+import java.net.URL;
+import java.util.Date;
 
 /**
  * @author CYT
@@ -130,6 +132,23 @@ public class OssUtils {
             return "http://" + bucket + "." + outEndPoint + "/" + fileUrl;
         }
         return null;
+    }
+
+    /**
+     * url签名访问
+     *
+     * @param bucketName bucketName
+     * @param path       path
+     * @param expireTime 过期时间 s
+     * @return 加密连接
+     */
+    public String presignedUrl(String bucketName, String path, Long expireTime) {
+        // 设置URL过期时间 单位秒。
+        Date expiration = new Date(System.currentTimeMillis() + expireTime * 1000);
+        // 生成以GET方法访问的签名URL，访客可以直接通过浏览器访问相关内容。
+        URL url = ossClient.generatePresignedUrl(bucketName, path.replaceAll("https?", "")
+                .replace("://" + bucketName + "." + endPoint + "/", ""), expiration);
+        return url.toString();
     }
 }
 

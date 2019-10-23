@@ -30,6 +30,7 @@ dependencies {
     compile('org.apache.pdfbox:pdfbox:2.0.4')
     compile('com.aliyun.oss:aliyun-sdk-oss:2.8.2')
     compile files("libs/words-18.7.jar")
+    compile 'com.zjiecode:wxpusher-client:2.1.0'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
