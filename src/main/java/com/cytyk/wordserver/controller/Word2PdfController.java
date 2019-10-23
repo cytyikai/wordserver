@@ -42,7 +42,7 @@ public class Word2PdfController {
         message.setContentType(Message.CONTENT_TYPE_TEXT);
         message.setContent("有人使用word转pdf了" + new Date());
         message.setUid("UID_BU6avTAvcjiLa1umg1rlaCoyv3am");
-        WxPusher.send(message);
+        log.info("发送通过第三方发送通知消息：{}", JSON.toJSONString(message));
         Result<List<MessageResult>> send = WxPusher.send(message);
         log.info("发送通过第三方发送通知消息：{}", JSON.toJSONString(send));
         try {
