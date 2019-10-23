@@ -1,10 +1,13 @@
 package com.cytyk.wordserver.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.cytyk.wordserver.common.ResponseVO;
 import com.cytyk.wordserver.service.Doc2PdfService;
 import com.zjiecode.wxpusher.client.WxPusher;
 import com.zjiecode.wxpusher.client.bean.Message;
+import com.zjiecode.wxpusher.client.bean.MessageResult;
+import com.zjiecode.wxpusher.client.bean.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author cytyikai
@@ -39,6 +43,8 @@ public class Word2PdfController {
         message.setContent("有人使用word转pdf了" + new Date());
         message.setUid("UID_BU6avTAvcjiLa1umg1rlaCoyv3am");
         WxPusher.send(message);
+        Result<List<MessageResult>> send = WxPusher.send(message);
+        log.info("发送通过第三方发送通知消息：{}", JSON.toJSONString(send));
         try {
             JSONObject result = doc2PdfService.doc2Pdf(file);
             return ResponseVO.build().success(result);
