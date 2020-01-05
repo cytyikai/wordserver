@@ -1,11 +1,13 @@
 package com.cytyk.wordserver.common;
 
 import com.alibaba.fastjson.JSON;
+import lombok.Data;
 
 /**
  * @author yikai
  * 2019/04/30 10:21
  */
+@Data
 public class ResponseVO {
     private Integer code;
     private Object data;

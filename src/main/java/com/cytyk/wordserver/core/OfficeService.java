@@ -42,7 +42,7 @@ public class OfficeService {
     /**
      * 默认等待时间 秒
      */
-    private final static Integer time = 30;
+    private final static Integer time = 3;
 
     /**
      * 计时器
