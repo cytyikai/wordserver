@@ -10,6 +10,7 @@ import com.zjiecode.wxpusher.client.bean.MessageResult;
 import com.zjiecode.wxpusher.client.bean.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,6 +31,9 @@ public class Word2PdfController {
 
     private final Doc2PdfService doc2PdfService;
 
+    @Value("${msg.app.token}")
+    private String msgAppToken;
+
     @Autowired
     public Word2PdfController(Doc2PdfService doc2PdfService) {
         this.doc2PdfService = doc2PdfService;
@@ -38,7 +42,7 @@ public class Word2PdfController {
     @PostMapping("/doc2Pdf")
     public ResponseVO doc2Pdf(@RequestParam MultipartFile file) {
         Message message = new Message();
-        message.setAppToken("AT_QsUYIETNOhgzFAyqFrCLwY0WZhr4k6Lw");
+        message.setAppToken(msgAppToken);
         message.setContentType(Message.CONTENT_TYPE_TEXT);
         message.setContent("有人使用word转pdf了" + new Date());
         message.setUid("UID_BU6avTAvcjiLa1umg1rlaCoyv3am");
