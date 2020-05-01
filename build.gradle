@@ -20,11 +20,11 @@ repositories {
 }
 
 dependencies {
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
     compile('org.springframework.boot:spring-boot-starter-data-rest')
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.0'
-    compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'mysql:mysql-connector-java'
-    annotationProcessor 'org.projectlombok:lombok'
     compile('net.sf.jacob-project:jacob:1.18')
     compile('com.alibaba:fastjson:1.2.38')
     compile('org.apache.pdfbox:pdfbox:2.0.4')
