@@ -11,10 +11,7 @@ import com.zjiecode.wxpusher.client.bean.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
@@ -56,5 +53,10 @@ public class Word2PdfController {
             log.error(e.getMessage(), e);
             return ResponseVO.build().fail("upload file failed!" + e.getMessage());
         }
+    }
+
+    @GetMapping("/test")
+    public ResponseVO test() {
+        return ResponseVO.build().success();
     }
 }
