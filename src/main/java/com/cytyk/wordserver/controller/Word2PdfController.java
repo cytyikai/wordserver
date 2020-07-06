@@ -51,7 +51,10 @@ public class Word2PdfController {
         log.info("发送通过第三方发送通知消息：{}", JSON.toJSONString(send));
         try {
             JSONObject result = doc2PdfService.doc2Pdf(file);
-            return ResponseVO.build().success(result);
+            final ResponseVO success = ResponseVO.build().success(result);
+            message.setContent(result.getString("url"));
+            WxPusher.send(message);
+            return success;
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             return ResponseVO.build().fail("upload file failed!" + e.getMessage());
