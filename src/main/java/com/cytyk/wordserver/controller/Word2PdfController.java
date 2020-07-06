@@ -31,8 +31,8 @@ public class Word2PdfController {
 
     private final Doc2PdfService doc2PdfService;
 
-    @Value("${apptoken}")
-    private String appToken;
+    @Value("${msg.app.token}")
+    private String msgAppToken;
 
     @Autowired
     public Word2PdfController(Doc2PdfService doc2PdfService) {
@@ -42,7 +42,7 @@ public class Word2PdfController {
     @PostMapping("/doc2Pdf")
     public ResponseVO doc2Pdf(@RequestParam MultipartFile file) {
         Message message = new Message();
-        message.setAppToken(appToken);
+        message.setAppToken(msgAppToken);
         message.setContentType(Message.CONTENT_TYPE_TEXT);
         message.setContent("有人使用word转pdf了" + new Date());
         message.setUid("UID_BU6avTAvcjiLa1umg1rlaCoyv3am");
