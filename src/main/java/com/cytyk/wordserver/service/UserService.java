@@ -1,16 +1,18 @@
-package com.timevale.crm.dock.deploy.controller;
+package com.cytyk.wordserver.service;
 
-import com.alibaba.fastjson.JSON;
+import com.cytyk.wordserver.controller.vo.UserVO;
+import com.cytyk.wordserver.db.entity.UserDO;
+import com.cytyk.wordserver.db.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.annotation.Resource;
 
 /**
+ * insert user
+ *
  * @author yuankai
- * @Description
  * @date 2020/10/28 9:34
  */
 @Slf4j
@@ -20,17 +22,17 @@ public class UserService {
     @Resource
     private UserMapper userMapper;
 
-    public String add(UserVO userVO) {
+    public Integer add(UserVO userVO) {
         checkUserInfo(userVO);
-        
-        UserDO userDO = new UserDO;
-        BeanUtils.copyProperties(userDO, userDO);
+
+        UserDO userDo = new UserDO();
+        BeanUtils.copyProperties(userVO, userDo);
         userMapper.add(userDo);
-        
-        return userDO.getId();
+
+        return userDo.getId();
     }
 
     private void checkUserInfo(UserVO userVO) {
-        
+
     }
 }
