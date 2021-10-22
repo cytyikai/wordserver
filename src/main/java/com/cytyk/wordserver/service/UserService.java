@@ -35,4 +35,20 @@ public class UserService {
     private void checkUserInfo(UserVO userVO) {
 
     }
+
+    public Integer update(UserVO userVO) {
+        checkUserInfo(userVO);
+
+        UserDO userDo = new UserDO();
+        BeanUtils.copyProperties(userVO, userDo);
+        userMapper.update(userDo);
+        return userDo.getId();
+    }
+
+    public UserVO get(Integer id) {
+        UserDO userDO = userMapper.get(id);
+        UserVO userVo = new UserVO();
+        BeanUtils.copyProperties(userDO, userVo);
+        return userVo;
+    }
 }
